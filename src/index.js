@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import PollList from './PollList';
+import DATA from '../data';
 import './index.css';
 
 ReactDOM.render(
-  <App />,
+  <PollList data={DATA} />,
   document.getElementById('root')
 );
