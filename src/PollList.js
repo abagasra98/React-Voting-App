@@ -7,7 +7,7 @@ class PollList extends Component {
   render() {
     let pollNodes = this.props.data.map(poll => {
       return (
-        <ListGroupItem href="#" className="center">{poll.title}</ListGroupItem>
+        <ListGroupItem href={'/polls/' + poll['_id']} key={poll['_id']}>{poll.title}</ListGroupItem>
       );
     });
 

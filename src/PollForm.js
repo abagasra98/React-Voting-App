@@ -20,7 +20,7 @@ class PollForm extends Component {
     e.preventDefault();
     let selection = this.state.selection.trim(); // get current user too?
 
-    if (!text)
+    if (!selection)
       return;
 
     this.props.onSelectionSubmit({selection: selection});
@@ -48,3 +48,5 @@ class PollForm extends Component {
     );
   }
 }
+
+export default PollForm;

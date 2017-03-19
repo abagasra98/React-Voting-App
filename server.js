@@ -49,6 +49,15 @@ router.route('/polls')
     });
   });
 
+router.route('/polls/:poll_id')
+  .get(function(req, res) {
+    Poll.findById(req.params.poll_id, (err, poll) => {
+      if (err)
+        res.send(err);
+      res.send(poll); // res.json instead?
+    });
+  });
+
 app.use('/api', router);
 
 app.listen(port, function() {
