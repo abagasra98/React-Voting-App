@@ -22,7 +22,7 @@ class PollBox extends Component {
 
   render() {
     return (
-      <Jumbotron>
+      <Jumbotron className="text-center">
         <h2>React Voting App</h2>
         <h4>Select a poll to see the results and vote, or sign-in to make a new poll.</h4>
         <PollList data={this.state.data} />
