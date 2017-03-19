@@ -7,13 +7,13 @@ import Button from 'react-bootstrap/lib/Button';
 class PollForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {selection: ''}; // store index instead of selection
+    this.state = {selection: '', isInitialSelection: true}; // store index instead of selection
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSelectionChange(e) {
-    this.setState({selection: e.target.value});
+    this.setState({selection: e.target.value, isInitialSelection: false});
   }
 
   handleSubmit(e) {
@@ -28,9 +28,9 @@ class PollForm extends Component {
   }
 
   render() {
-    let pollOptions = this.props.options.map(option => {
+    let pollOptions = this.props.options.map((option, index) => {
       return (
-        <option value={option}>{option}</option>
+        <option value={option} key={index}>{option}</option>
       );
     });
 
@@ -39,11 +39,12 @@ class PollForm extends Component {
         <FormGroup controlId="formControlsSelect">
           <ControlLabel>I'd like to vote for:</ControlLabel>
           <FormControl componentClass="select" placeholder="Choose an option" onChange={this.handleSelectionChange}>
+            {(this.state.isInitialSelection) ? (<option value="Choose an option" key="-1">Choose an option</option>) : null}
             {pollOptions}
           </FormControl>
         </FormGroup>
 
-        <Button type="submit">Submit</Button>
+        <Button bsStyle="primary" bsSize="large" type="submit">Submit</Button>
       </form>
     );
   }

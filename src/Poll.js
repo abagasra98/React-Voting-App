@@ -26,6 +26,7 @@ class Poll extends Component {
   }
 
   handleSelectionSubmit(poll) {
+    alert(`You selected: ${poll.selection}`);
     // do stuff
   }
 

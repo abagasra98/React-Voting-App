@@ -41,6 +41,10 @@ router.route('/polls')
     poll.ownerName = req.body.ownerName;
     poll.title = req.body.title;
     poll.options = req.body.options;
+    poll.votes = req.body.options.reduce((acc, curr) => {
+      acc[curr] = 0;
+      return acc;
+    }, {});
 
     poll.save(err => {
       if (err)
