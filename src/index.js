@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PollBox from './PollBox';
+import {browserHistory} from 'react-router-dom';
+
+import Routes from './routes';
 import './index.css';
 
 ReactDOM.render(
-  <PollBox url="http://localhost:3001/api/polls" />,
+  <Routes history={browserHistory} />,
   document.getElementById('root')
 );
