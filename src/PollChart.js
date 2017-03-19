@@ -3,7 +3,13 @@ import {Doughnut} from 'react-chartjs-2';
 
 class PollChart extends Component {
   render() {
-    return <Doughnut data={this.props.data} options={this.props.options} />
+    let options = { // make dynamic using props
+        animation:{
+            animateScale:true
+        }
+    };
+
+    return <Doughnut data={this.props.data} options={options} />
   }
 }
 

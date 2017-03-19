@@ -23,7 +23,7 @@ class PollForm extends Component {
     if (!selection)
       return;
 
-    this.props.onSelectionSubmit({selection: selection});
+    this.props.onSelectionSubmit(selection);
     this.setState({selection: ''});
   }
 
