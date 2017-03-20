@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel'
-import HelpBlock from 'react-bootstrap/lib/HelpBlock'
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import Button from 'react-bootstrap/lib/Button';
 
-class PollModal extends Component {
+export default class PollModal extends Component {
   constructor(props) {
     super(props);
     this.handleModalClose = this.handleModalClose.bind(this);
@@ -17,9 +17,10 @@ class PollModal extends Component {
   }
 
   render() {
-    var optionNodes = [];
-    for (var i = 0; i < 3; i++) // make dynamic
-    optionNodes[i] = <FieldGroup id={`formControlsOption${i}`} type='text' placeholder={'Enter option ' + (i+1) + ' here...'} />
+    const optionNodes = [];
+    for (let i = 0; i < 3; i += 1) {
+      optionNodes[i] = <FieldGroup id={`formControlsOption${i}`} type="text" placeholder={'Enter option ' + (i + 1) + ' here...'} />
+    }// make dynamic
 
     return (
       <Modal show={this.props.showModal} onHide={this.handleModalClose}>
@@ -28,7 +29,9 @@ class PollModal extends Component {
         </Modal.Header>
         <Modal.Body>
           <form>
-            <FieldGroup id="formControlsTitle" label='Title' type='text' placeholder='Enter title here...' />
+            <FieldGroup
+              id="formControlsTitle" label="Title" type="text" placeholder="Enter title here..."
+            />
             {optionNodes}
           </form>
         </Modal.Body>
@@ -40,7 +43,10 @@ class PollModal extends Component {
   }
 }
 
-export default PollModal;
+PollModal.propTypes = {
+  onModalClose: React.PropTypes.func.isRequired,
+  showModal: React.PropTypes.func.isRequired,
+};
 
 export function FieldGroup({ id, label, help, ...props }) {
   return (
