@@ -60,6 +60,22 @@ router.route('/polls/:poll_id')
         res.send(err);
       res.send(poll); // res.json instead?
     });
+  })
+  .put(function(req, res) {
+    Poll.findById(req.params.poll_id, (err, poll) => {
+      if (err)
+        res.send(err);
+
+        (req.body.title) ? poll.title = req.body.title : null;
+        (req.body.options) ? poll.options = req.body.options : null;
+        (req.body.votes) ? poll.votes = req.body.votes : null;
+
+        poll.save(err => {
+          if (err)
+            res.send(err);
+          res.json({message: 'Poll has been successfully updated!'});
+        });
+    });
   });
 
 app.use('/api', router);

@@ -30,10 +30,22 @@ class Poll extends Component {
       });
   }
 
-  handleSelectionSubmit(selection) {
-    alert(`You selected: ${selection}`);
+  handleSelectionSubmit(selection) { // use immutability-helper to avoid creating copies
+    var votes = this.state.votes;
+    votes[selection] += 1;
+
+    let poll = {title: this.state.title, options: this.state.options, votes: votes};
+    axios.put(this.props.url, poll)
+      .then((res) => {
+        console.log('Vote successfully recorded!')
+        this.setState({votes: votes});
+      })
+      .catch (err => {
+        console.error(err);
+    })
+    //this.setState({votes: votes});
+    // alert(`You selected: ${selection}`);
     // update votes locally and post to server
-    // do stuff
   }
 
   getChartData() { // add animation options
@@ -47,7 +59,6 @@ class Poll extends Component {
     data['labels'] = this.state.options;
     data['datasets'] = [datasetElement];
 
-    console.log(data);
     return data;
   }
 
