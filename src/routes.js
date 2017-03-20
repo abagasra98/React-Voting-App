@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import PollBox from './PollBox';
 import Poll from './Poll';
+//import PollModal from './PollModal';
 // import additional components
 
 const Routes = (props) => (
