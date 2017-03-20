@@ -10,7 +10,6 @@ class Poll extends Component {
     super(props);
     this.state = {
       title: '',
-      options: [],
       votes: {}
     }; // pass data as props instead since not dynamic
 
@@ -24,7 +23,6 @@ class Poll extends Component {
       .then(res => {
         this.setState({
           title: res.data.title,
-          options: res.data.options,
           votes: res.data.votes
         });
       });
@@ -34,7 +32,7 @@ class Poll extends Component {
     var votes = this.state.votes;
     votes[selection] += 1;
 
-    let poll = {title: this.state.title, options: this.state.options, votes: votes};
+    let poll = {title: this.state.title, votes: votes};
     axios.put(this.props.url, poll)
       .then((res) => {
         console.log('Vote successfully recorded!')
@@ -49,14 +47,14 @@ class Poll extends Component {
   }
 
   getChartData() { // add animation options
-    let randomColorArray = randomColor({ count: this.state.options.length, hue: 'random' });
+    let randomColorArray = randomColor({ count: Object.keys(this.state.votes).length, hue: 'random' });
     var datasetElement = {};
     datasetElement['data'] = Object.values(this.state.votes);
     datasetElement['backgroundColor'] = randomColorArray;
     datasetElement['hoverBackgroundColor'] = randomColorArray;
 
     var data = {};
-    data['labels'] = this.state.options;
+    data['labels'] = Object.keys(this.state.votes);
     data['datasets'] = [datasetElement];
 
     return data;
@@ -70,7 +68,7 @@ class Poll extends Component {
     return (
       <Jumbotron className='text-center'>
         <p>{this.state.title}</p>
-        <PollForm onSelectionSubmit={this.handleSelectionSubmit} options={this.state.options} />
+        <PollForm onSelectionSubmit={this.handleSelectionSubmit} options={Object.keys(this.state.votes)} />
         <PollChart data={this.getChartData()} />
       </Jumbotron>
     );

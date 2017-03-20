@@ -40,7 +40,6 @@ router.route('/polls')
     poll.ownerId = req.body.ownerId;
     poll.ownerName = req.body.ownerName;
     poll.title = req.body.title;
-    poll.options = req.body.options;
     poll.votes = req.body.options.reduce((acc, curr) => {
       acc[curr] = 0;
       return acc;
@@ -67,7 +66,6 @@ router.route('/polls/:poll_id')
         res.send(err);
 
         (req.body.title) ? poll.title = req.body.title : null;
-        (req.body.options) ? poll.options = req.body.options : null;
         (req.body.votes) ? poll.votes = req.body.votes : null;
 
         poll.save(err => {
