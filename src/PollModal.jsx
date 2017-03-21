@@ -12,11 +12,30 @@ export default class PollModal extends Component {
 
     this.handleModalClose = this.handleModalClose.bind(this);
     this.handleOptionChange = this.handleOptionChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.state = {
       optionCount: 3,
       filledOptions: 0,
       checkedElements: [],
     };
+  }
+
+  handleFormSubmit(e) {
+    e.preventDefault();
+
+    const title = e.target.elements[0].value; // potentially undefined
+    const options = [];
+    for (let i = 1; i < e.target.elements.length; i += 1) {
+      const optionValue = e.target.elements[i].value;
+      if (optionValue !== '') {
+        options.push(optionValue);
+      }
+    }
+
+    this.handleModalClose();
+    if (title && options) { // display error (input-validation)
+      this.props.onFormSubmit({ title, options });
+    }
   }
 
   handleOptionChange(e) {
@@ -36,6 +55,7 @@ export default class PollModal extends Component {
   }
 
   handleModalClose() {
+    this.setState({ optionCount: 3, filledOptions: 0, checkedElements: [] });
     this.props.onModalClose();
   }
 
@@ -46,7 +66,7 @@ export default class PollModal extends Component {
           <Modal.Title>Add a Poll</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form>
+          <form onSubmit={this.handleFormSubmit}>
             <FieldGroup
               id="formControlsTitle" label="Title" numElements={1}
               type="text" placeholder="Enter title here..."
@@ -84,6 +104,7 @@ export function FieldGroup({ id, label, numElements, ...props }) {
 
 PollModal.propTypes = {
   onModalClose: React.PropTypes.func.isRequired,
+  onFormSubmit: React.PropTypes.func.isRequired,
   showModal: React.PropTypes.bool,
 };
 
